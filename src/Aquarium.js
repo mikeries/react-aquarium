@@ -8,27 +8,43 @@ class Aquarium extends Component {
       x: 100,
       xDirection: 'right',
       y: 100,
-      yDirection: 'down'
+      yDirection: 'down',
+      xVelocity: 2,
+      yVelocity: 1,
     };
+  }
+
+  chooseRandomMovement() {
+    let xVelocity = Math.random()*4;
+    let yVelocity = Math.random()*2;
+    let xDirection = Math.random() < 0.5 ? 'left' : 'right';
+    let yDirection = Math.random() < 0.5 ? 'up' : 'down';
+    this.setState({
+      xVelocity: xVelocity,
+      yVelocity: yVelocity,
+      xDirection: xDirection,
+      yDirection: yDirection
+    })
   }
 
   tick() {
     this.move();
+    if(Math.random()<0.01) this.chooseRandomMovement();
   }
 
   move() {
-    let xVelocity = 1;
+    let xVelocity = this.state.xVelocity;
     let xDirection = this.state.xDirection;
-    let yVelocity = 1;
+    let yVelocity = this.state.yVelocity;
     let yDirection = this.state.yDirection;
 
-    if (this.state.x > (window.innerWidth-11)) {
+    if (this.state.x > (window.innerWidth-167)) {
       xDirection = 'left';
     } else if (this.state.x < 0) {
       xDirection = 'right';
     }
 
-    if (this.state.y > (window.innerHeight-11)) {
+    if (this.state.y > (window.innerHeight-67)) {
       yDirection = 'up';
     } else if (this.state.y < 0) {
       yDirection = 'down';
