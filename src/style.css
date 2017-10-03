@@ -1,8 +1,8 @@
 .ball {
-  background-color: black;
-  width:10px;
-  height:10px;
+  background-image: url('./images/animatedclownfish-29.gif');
   position: absolute;
+  width: 166px;
+  height: 85px;
   left: 0;
   top: 0;
 }
