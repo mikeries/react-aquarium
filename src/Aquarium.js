@@ -50,10 +50,11 @@ class Aquarium extends Component {
   }
 
   render() {
-    var fishStyle = {left: this.state.x, top: this.state.y}
+    let fishStyle = { left: this.state.x, top: this.state.y }
+    let fishClasses = 'fish' + (this.state.xDirection === 'left' ? ' flipped' : '')
     return (
       <div>
-        <img className='fish' style={fishStyle} src='./images/animatedclownfish-29.gif'/>
+        <img className={fishClasses} style={fishStyle} src='./images/animatedclownfish-29.gif'/>
       </div>
     );
   }
