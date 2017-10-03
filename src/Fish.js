@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Constant from './constants'
 import './style.css';
 
 class Fish extends Component {
@@ -6,21 +7,26 @@ class Fish extends Component {
     super();
 
     this.state = {
-      x: Math.random() * (window.innerWidth - 167),
+      x: Math.random() * 
+        (window.innerWidth - Constant.max_scale_factor * Constant.image_width),
       xDirection: 'right',
-      y: Math.random() * (window.innerHeight - 67),
-      z: Math.random() * -60,
-      yDirection: 'down',
       xVelocity: 2,
+
+
+      y: Math.random() * 
+        (window.innerHeight - Constant.max_scale_factor * Constant.image_height),
+      yDirection: 'down',
       yVelocity: 1,
+
+      z: Math.random() * Constant.min_z,
       zVelocity: 0.1
     };
   }
 
   chooseRandomMovement() {
-    let xVelocity = Math.random()*4;
-    let yVelocity = Math.random()*2;
-    let zVelocity = 0.1
+    let xVelocity = Math.random() * Constant.max_x_velocity;
+    let yVelocity = Math.random() * Constant.max_y_velocity;
+    let zVelocity = Math.random() * Constant.max_z_velocity;
     let xDirection = Math.random() < 0.5 ? 'left' : 'right';
     let yDirection = Math.random() < 0.5 ? 'up' : 'down';
     let zDirection = Math.random() < 0.5 ? 'in' : 'out';
@@ -36,27 +42,31 @@ class Fish extends Component {
 
   tick() {
     this.move();
-    if(Math.random()<0.01) this.chooseRandomMovement();
+    if(Math.random() < Constant.chance_to_change_direction) {
+      this.chooseRandomMovement();
+    }
   }
 
   move() {
     let { xVelocity, xDirection, yVelocity, yDirection, zVelocity, zDirection } = this.state;
 
-    if (this.state.x > (window.innerWidth-167)) {
+    if (this.state.x > 
+      (window.innerWidth - Constant.max_scale_factor * Constant.image_width)) {
       xDirection = 'left';
-    } else if (this.state.x < 0) {
+    } else if (this.state.x < Constant.max_scale_factor * Constant.image_width) {
       xDirection = 'right';
     }
 
-    if (this.state.y > (window.innerHeight-80)) {
+    if (this.state.y > 
+      ( window.innerHeight - Constant.max_scale_factor * Constant.image_height )) {
       yDirection = 'up';
-    } else if (this.state.y < 0) {
+    } else if (this.state.y < Constant.max_scale_factor * Constant.image_height) {
       yDirection = 'down';
     }
 
     if (this.state.z > (-1)) {
       zDirection = 'in';
-    } else if (this.state.z < -69) {
+    } else if (this.state.z < Constant.min_z) {
       zDirection = 'out';
     }
 
@@ -72,15 +82,14 @@ class Fish extends Component {
 
   componentDidMount() {
     this.timerID = setInterval(
-      () => this.tick(),
-      50
+      () => this.tick(), Constant.tick_interval
     );
   }
 
   render() {
-    let yScale = 2 + (this.state.z / 60) ;
-    let xScale = ( this.state.xDirection === 'right' ? yScale : -yScale )
-    let fishScale = {transform: `scaleX(${xScale}) scaleY(${yScale})`}
+    let yScale = 2 - (this.state.z / Constant.min_z);
+    let xScale = ( this.state.xDirection === 'right' ? yScale : -yScale );
+    let fishScale = {transform: `scaleX(${xScale}) scaleY(${yScale})`};
     let fishStyle = { ...fishScale, left: this.state.x, top: this.state.y, zIndex: Math.round(this.state.z) }
 
     return (
