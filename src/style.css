@@ -1,5 +1,4 @@
-.ball {
-  background-image: url('./images/animatedclownfish-29.gif');
+img.fish {
   position: absolute;
   width: 166px;
   height: 85px;

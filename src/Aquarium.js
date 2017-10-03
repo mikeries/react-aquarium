@@ -50,10 +50,10 @@ class Aquarium extends Component {
   }
 
   render() {
-    var ballStyle = {left: this.state.x, top: this.state.y}
+    var fishStyle = {left: this.state.x, top: this.state.y}
     return (
       <div>
-        <div className='ball' style={ballStyle}></div>
+        <img className='fish' style={fishStyle} src='./images/animatedclownfish-29.gif'/>
       </div>
     );
   }
