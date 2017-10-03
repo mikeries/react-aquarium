@@ -9,22 +9,28 @@ class Fish extends Component {
       x: Math.random() * (window.innerWidth - 167),
       xDirection: 'right',
       y: Math.random() * (window.innerHeight - 67),
+      z: Math.random() * -60,
       yDirection: 'down',
       xVelocity: 2,
       yVelocity: 1,
+      zVelocity: 1
     };
   }
 
   chooseRandomMovement() {
     let xVelocity = Math.random()*4;
     let yVelocity = Math.random()*2;
+    let zVelocity = 1
     let xDirection = Math.random() < 0.5 ? 'left' : 'right';
     let yDirection = Math.random() < 0.5 ? 'up' : 'down';
+    let zDirection = Math.random() < 0.5 ? 'in' : 'out';
     this.setState({
       xVelocity: xVelocity,
       yVelocity: yVelocity,
       xDirection: xDirection,
-      yDirection: yDirection
+      yDirection: yDirection,
+      zVelocity: zVelocity,
+      zDirection: zDirection
     })
   }
 
@@ -34,7 +40,7 @@ class Fish extends Component {
   }
 
   move() {
-    let { xVelocity, xDirection, yVelocity, yDirection } = this.state;
+    let { xVelocity, xDirection, yVelocity, yDirection, zVelocity, zDirection } = this.state;
 
     if (this.state.x > (window.innerWidth-167)) {
       xDirection = 'left';
@@ -64,12 +70,13 @@ class Fish extends Component {
   }
 
   render() {
-    let fishStyle = { left: this.state.x, top: this.state.y }
-    let fishClasses = 'fish' + (this.state.xDirection === 'left' ? ' flipped' : '')
+    let yScale = 2 + (this.state.z / 60) ;
+    let xScale = ( this.state.xDirection === 'right' ? yScale : -yScale )
+    let fishScale = {transform: `scaleX(${xScale}) scaleY(${yScale})`}
+    let fishStyle = { ...fishScale, left: this.state.x, top: this.state.y, zIndex: Math.round(this.state.z) }
+
     return (
-      <div>
-        <img className={fishClasses} style={fishStyle} src={this.props.image}/>
-      </div>
+      <img className='fish' style={fishStyle} src={this.props.image}/>
     );
   }
 
