@@ -1,5 +1,7 @@
 img.fish {
   position: absolute;
+  height: 28px;
+  width: 49px;
   left: 0;
   top: 0;
 }

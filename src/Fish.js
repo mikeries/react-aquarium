@@ -4,6 +4,7 @@ import './style.css';
 class Fish extends Component {
   constructor() {
     super();
+
     this.state = {
       x: Math.random() * (window.innerWidth - 167),
       xDirection: 'right',
@@ -67,7 +68,7 @@ class Fish extends Component {
     let fishClasses = 'fish' + (this.state.xDirection === 'left' ? ' flipped' : '')
     return (
       <div>
-        <img className={fishClasses} style={fishStyle} src='./images/animatedclownfish-29.gif'/>
+        <img className={fishClasses} style={fishStyle} src={this.props.image}/>
       </div>
     );
   }
