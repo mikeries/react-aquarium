@@ -13,14 +13,14 @@ class Fish extends Component {
       yDirection: 'down',
       xVelocity: 2,
       yVelocity: 1,
-      zVelocity: 1
+      zVelocity: 0.1
     };
   }
 
   chooseRandomMovement() {
     let xVelocity = Math.random()*4;
     let yVelocity = Math.random()*2;
-    let zVelocity = 1
+    let zVelocity = 0.1
     let xDirection = Math.random() < 0.5 ? 'left' : 'right';
     let yDirection = Math.random() < 0.5 ? 'up' : 'down';
     let zDirection = Math.random() < 0.5 ? 'in' : 'out';
@@ -54,11 +54,19 @@ class Fish extends Component {
       yDirection = 'down';
     }
 
+    if (this.state.z > (-1)) {
+      zDirection = 'in';
+    } else if (this.state.z < -69) {
+      zDirection = 'out';
+    }
+
     this.setState({
       x: this.state.x + (xDirection === 'right' ? xVelocity : -xVelocity),
       xDirection: xDirection,
       y: this.state.y + (yDirection === 'down' ? yVelocity : -yVelocity),
-      yDirection: yDirection
+      yDirection: yDirection,
+      z: this.state.z + (zDirection === 'in' ? -zVelocity : zVelocity),
+      zDirection: zDirection
     })
   }
 
