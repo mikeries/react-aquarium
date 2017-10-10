@@ -8,7 +8,7 @@ img.fish {
 
 .water {
   background-color: black;
-  opacity: 0.2;
+  opacity: 0.15;
   z-index: -1;
   position: absolute;
   left: 0;
